@@ -1,0 +1,19 @@
+*** Suspend: just to make functions able to stop and resume.
+*** Suspend: Not responsible to do stuff in background thread.
+*** Suspend: must be call from another suspend function or coroutines builder
+
+*** Coroutines builder consist of: 1) Scope
+                                   2) Starting
+                                   3) thread
+                                   4) body
+*** Dispatchers thread is: 1) IO
+                           2) Main
+                           3) Default
+                           4) Unconfined
+                           5) newSingleThreadContext("name")
+*** withContext(): to switch background thread
+*** runBlocking{}: block ui
+*** To make to suspend functions work in parallel ---> must use GlobalScope.
+
+*** Launch --> no return
+    Async/Await --> return
