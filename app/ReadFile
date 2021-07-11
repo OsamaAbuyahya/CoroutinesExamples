@@ -16,4 +16,7 @@
 *** To make to suspend functions work in parallel ---> must use GlobalScope.
 
 *** Launch --> no return
-    Async/Await --> return
+    Async/Await --> return (Deferred<T>)
+
+
+***** Last Video is 4 --> Start from 5 ( Async/Await)
