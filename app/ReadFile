@@ -18,5 +18,6 @@
 *** Launch --> no return
     Async/Await --> return (Deferred<T>)
 
+*** Jobs & structured concurrency
 
-***** Last Video is 4 --> Start from 5 ( Async/Await)
+***** Last Video is 6 --> Start from 7 ( Channel )
