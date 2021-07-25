@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.Channel
 import kotlin.system.measureTimeMillis
 
 class MainActivity : AppCompatActivity() {
@@ -39,25 +40,46 @@ class MainActivity : AppCompatActivity() {
 //            Log.d("Here", time.toString())
 //        }
 
-        val coroutinesScope = CoroutineScope(Dispatchers.IO + parentJob)
-        coroutinesScope.launch {
+        // Jop & structured coroutines
+//        val coroutinesScope = CoroutineScope(Dispatchers.IO + parentJob)
+//        coroutinesScope.launch {
+//
+//        }
+//
+//        val job: Job = GlobalScope.launch(parentJob) {
+//            val child1 = launch { getUserFromNetwork() }
+//            val child2 = launch { getUserFromDatabase() }
+//
+//            // join make suspend to thread until the child1 and child2 ending
+//            child1.join()
+//            child2.join()
+////            joinAll(child1, child2)
+//            // cancel after join ( Ending )
+//            child1.cancelAndJoin()
+//            launch { delay(2000) }
+//        }
+//        // Cancel the job and all child of job
+//        job.cancel()
 
+        // Channel
+        val kotlinChannel = Channel<String>()
+        val charList = arrayOf("A", "B", "C", "D")
+
+        runBlocking {
+            launch {
+                for (char in charList){
+                    kotlinChannel.send(char)
+                }
+            }
+
+            launch {
+                for (char in kotlinChannel){
+                    Log.d("Here", char)
+                    delay(2000)
+                }
+            }
         }
 
-        val job: Job = GlobalScope.launch(parentJob) {
-            val child1 = launch { getUserFromNetwork() }
-            val child2 = launch { getUserFromDatabase() }
-
-            // join make suspend to thread until the child1 and child2 ending
-            child1.join()
-            child2.join()
-//            joinAll(child1, child2)
-            // cancel after join ( Ending )
-            child1.cancelAndJoin()
-            launch { delay(2000) }
-        }
-        // Cancel the job and all child of job
-        job.cancel()
     }
 
     suspend fun printMyTextAfterDelay(myText: String) {
